@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Herobanner } from "../assets/Blob_Image.svg";
 import Button from "./Button";
+import NeumorphicBlur from "./effects/NeumorphicBlur";
 export default function Hero() {
   const navigate = useNavigate();
   function buttonHandler(e) {
@@ -11,6 +12,7 @@ export default function Hero() {
       <header className="grid grid-cols-2">
         <aside className="flex flex-col justify-center">
           <div className="p-6">
+            <NeumorphicBlur />
             <h1 className="text-2xl font-extrabold text-gray-900 tracking-wide">
               SkillSwap – Exchange Skills, Empower Growth
             </h1>
