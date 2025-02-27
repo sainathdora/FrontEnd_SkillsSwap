@@ -1,11 +1,38 @@
 export default function Register() {
+  async function RegisterHandler(e) {
+    e.preventDefault();
+    console.log(Object.keys(e.target));
+    console.log(e.target[0]);
+    let name = e.target[0].value;
+    let email = e.target[0].value;
+    let password = e.target[0].value;
+    let body = {
+      name: name,
+      email: email,
+      password: password
+    }
+    try {
+
+      const resjson = await fetch('http://localhost:3000/users', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+      })
+      const res = await resjson.json();
+      console.log(res)
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Create an Account
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={RegisterHandler}>
           {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
