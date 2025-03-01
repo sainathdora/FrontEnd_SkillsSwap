@@ -1,13 +1,32 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Authcontext";
 
-export default function Login(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    function LogInHandler(e){
-        e.preventDefault();
-        console.log(e);
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const { isLoggedIn, login } = useAuth();
+  const nav = useNavigate();
+  const [password, setPassword] = useState("");
+  async function LogInHandler(e) {
+    e.preventDefault();
+    setEmail(e.target[0].value);
+    setPassword(e.target[1].value);
+    console.log(email, password);
+    const res = await fetch("http://localhost:3000/users");
+    const data = await res.json();
+    console.log(data)
+    const user = data.filter((obj) => {
+      return obj.email === email && obj.password === password
+    })
+    if (user.length > 0) {
+      nav("/");
+      login()
+      return;
+    } else {
+      alert("Wrong password or email")
     }
-    return <>
+  }
+  return <>
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-2xl shadow-lg w-96">
         <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
@@ -43,5 +62,5 @@ export default function Login(){
         </form>
       </div>
     </div>
-    </>
+  </>
 }
