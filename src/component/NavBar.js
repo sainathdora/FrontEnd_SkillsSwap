@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../context/Authcontext";
 export default function NavBar() {
+  const { isLoggedIn } = useAuth();
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +23,7 @@ export default function NavBar() {
 
           {/* Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">Login</Link>
+            {!isLoggedIn && <Link to="/login">Login</Link>}
             <a
               href="/register"
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"

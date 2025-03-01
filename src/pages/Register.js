@@ -1,18 +1,19 @@
+import { useNavigate } from "react-router-dom";
 export default function Register() {
+  const navigate = useNavigate();
   async function RegisterHandler(e) {
     e.preventDefault();
     console.log(Object.keys(e.target));
     console.log(e.target[0]);
     let name = e.target[0].value;
-    let email = e.target[0].value;
-    let password = e.target[0].value;
+    let email = e.target[1].value;
+    let password = e.target[2].value;
     let body = {
       name: name,
       email: email,
       password: password
     }
     try {
-
       const resjson = await fetch('http://localhost:3000/users', {
         method: 'post',
         headers: {
@@ -22,8 +23,9 @@ export default function Register() {
       })
       const res = await resjson.json();
       console.log(res)
+      navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.log("Somthing went wrong  ");
     }
   }
   return (
