@@ -24,12 +24,14 @@ export default function NavBar() {
           {/* Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {!isLoggedIn && <Link to="/login">Login</Link>}
-            <a
-              href="/register"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Register
-            </a>
+            {!isLoggedIn &&
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Register
+              </Link>
+            }
           </div>
 
           {/* Mobile Menu Button */}
