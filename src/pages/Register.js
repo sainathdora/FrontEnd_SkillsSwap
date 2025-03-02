@@ -42,7 +42,11 @@ export default function Register() {
       console.log(res);
       navigate("/login");
     } catch (err) {
-      console.log("Something went wrong");
+      return (
+        <>
+          <h1 className="text-4xl">Something Went Wrong</h1>
+        </>
+      );
     }
   }
 

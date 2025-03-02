@@ -1,6 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 export default function ProfileIcon() {
+  const nav = useNavigate();
+  function onClickHandler() {
+    nav("/EditProfile");
+  }
   return (
-    <div className="flex items-center justify-center w-12 h-12 bg-gray-800 rounded-full hover:bg-gray-700 transition">
+    <div
+      className="flex items-center justify-center w-12 h-12 bg-gray-800 rounded-full hover:bg-gray-700 transition"
+      onClick={onClickHandler}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

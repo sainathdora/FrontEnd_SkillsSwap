@@ -3,9 +3,6 @@ import dummydata from "../../assets/dummydata.json";
 export default function NeedYou() {
   const people = dummydata["people"];
   console.log(dummydata);
-  for (let i of dummydata.people) {
-    console.log(i);
-  }
   return (
     <>
       <div className="flex flex-col">
