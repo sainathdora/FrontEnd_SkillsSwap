@@ -14,15 +14,16 @@ export default function EditProfile() {
     setEmail(e.target.value);
   }
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [email, setEmail] = useState([]);
-  const [name, setName] = useState([]);
-  const [password, setPassword] = useState([]);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   useEffect(() => {
-    setEmail(loggedUser[0]["email"]);
-    console.log(loggedUser);
-    setName(loggedUser[0]["name"]);
-    setPassword(loggedUser[0]["password"]);
-    setSelectedSkills(loggedUser[0]["skills"]);
+    if (loggedUser && loggedUser.length > 0) {
+      setEmail(loggedUser[0]["email"] || "");
+      setName(loggedUser[0]["name"] || "");
+      setPassword(loggedUser[0]["password"] || "");
+      setSelectedSkills(loggedUser[0]["skills"] || []);
+    }
   }, []);
   const handleSkillChange = (e) => {
     const skill = e.target.value;
