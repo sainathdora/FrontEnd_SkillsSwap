@@ -58,7 +58,7 @@ export default function EditProfile() {
     } catch (e) {}
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
           Edit Profile
@@ -82,6 +82,7 @@ export default function EditProfile() {
             </label>
             <input
               onChange={onEmailChangeHandler}
+              required
               value={email}
               type="email"
               placeholder="Enter your email"
@@ -96,9 +97,11 @@ export default function EditProfile() {
               onChange={onPasswordChangeHandler}
               value={password}
               type="password"
+              required
               placeholder="Enter new password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />
+            <span className="font-light">{password}</span>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">
