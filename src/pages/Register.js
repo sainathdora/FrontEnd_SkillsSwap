@@ -11,18 +11,18 @@ export default function Register() {
     let body = {
       name: name,
       email: email,
-      password: password
-    }
+      password: password,
+    };
     try {
-      const resjson = await fetch('http://localhost:3000/users', {
-        method: 'post',
+      const resjson = await fetch("http://localhost:3000/users", {
+        method: "post",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
-      })
+        body: JSON.stringify(body),
+      });
       const res = await resjson.json();
-      console.log(res)
+      console.log(res);
       navigate("/login");
     } catch (err) {
       console.log("Somthing went wrong  ");
