@@ -44,7 +44,7 @@ export default function EditProfile() {
     };
     try {
       const res = await fetch(
-        `http://localhost:3000/users/${loggedUser[0].id}`,
+        `https://json-server-pt0c.onrender.com/users/${loggedUser[0].id}`,
         {
           method: "put",
           headers: {

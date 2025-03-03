@@ -30,7 +30,7 @@ export default function Register() {
     };
 
     try {
-      const resjson = await fetch("http://localhost:3000/users", {
+      const resjson = await fetch("https://json-server-pt0c.onrender.com/users", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
