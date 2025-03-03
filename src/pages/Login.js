@@ -11,7 +11,7 @@ export default function Login() {
     e.preventDefault();
     setEmail(e.target[0].value);
     setPassword(e.target[1].value);
-    const res = await fetch("http://localhost:3000/users");
+    const res = await fetch("https://json-server-pt0c.onrender.com/users");
     const data = await res.json();
     console.log(data);
     const user = data.filter((obj) => {

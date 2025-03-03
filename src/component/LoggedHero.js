@@ -1,10 +1,9 @@
 import { useAuth } from "../context/Authcontext";
-
+import NeedYou from "./HeroNeeds/NeedYou";
 export default function LoggedHero() {
   const { loggedUser } = useAuth();
   console.log(loggedUser);
   const { name, email, id } = loggedUser[0];
-  console.log(name, email, id);
   return (
     <>
       <header>
@@ -15,6 +14,9 @@ export default function LoggedHero() {
           </h1>
         </div>
       </header>
+      <section>
+        <NeedYou />
+      </section>
     </>
   );
 }
