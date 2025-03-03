@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/Authcontext";
+import ProfileIcon from "./Profile/ProfileIcon";
 export default function NavBar() {
   const { isLoggedIn } = useAuth();
   return (
@@ -24,14 +25,15 @@ export default function NavBar() {
           {/* Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {!isLoggedIn && <Link to="/login">Login</Link>}
-            {!isLoggedIn &&
+            {!isLoggedIn && (
               <Link
                 to="/register"
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 Register
               </Link>
-            }
+            )}
+            {isLoggedIn && <ProfileIcon />}
           </div>
 
           {/* Mobile Menu Button */}
