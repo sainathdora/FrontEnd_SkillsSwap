@@ -1,10 +1,30 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import skillsData from "../assets/Skills.json";
-
-export default function Register() {
-  const navigate = useNavigate();
+import { useAuth } from "../context/Authcontext";
+export default function EditProfile() {
+  const { loggedUser } = useAuth();
+  console.log(loggedUser[0]);
+  function onNameChangeHandler(e) {
+    setName(e.target.value);
+  }
+  function onPasswordChangeHandler(e) {
+    setPassword(e.target.value);
+  }
+  function onEmailChangeHandler(e) {
+    setEmail(e.target.value);
+  }
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  useEffect(() => {
+    if (loggedUser && loggedUser.length > 0) {
+      setEmail(loggedUser[0]["email"] || "");
+      setName(loggedUser[0]["name"] || "");
+      setPassword(loggedUser[0]["password"] || "");
+      setSelectedSkills(loggedUser[0]["skills"] || []);
+    }
+  }, []);
   const handleSkillChange = (e) => {
     const skill = e.target.value;
     setSelectedSkills(
@@ -14,98 +34,76 @@ export default function Register() {
           : [...prev, skill] // Add if not selected
     );
   };
-
-  async function RegisterHandler(e) {
+  async function onSubmitHandler(e) {
     e.preventDefault();
-
-    let name = e.target[0].value;
-    let email = e.target[1].value;
-    let password = e.target[2].value;
-
     let body = {
-      name: name,
-      email: email,
-      password: password,
-      skills: selectedSkills, // Include selected skills
+      email,
+      name,
+      password,
+      selectedSkills,
     };
-
     try {
-      const resjson = await fetch("http://localhost:3000/users", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      const res = await resjson.json();
-      console.log(res);
-      navigate("/login");
-    } catch (err) {
-      return (
-        <>
-          <h1 className="text-4xl">Something Went Wrong</h1>
-        </>
+      const res = await fetch(
+        `http://localhost:3000/users/${loggedUser[0].id}`,
+        {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
       );
-    }
+      const resjson = await res.json();
+      alert("Changes Successful!");
+      console.log(resjson);
+    } catch (e) {}
   }
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-          Create an Account
+          Edit Profile
         </h2>
-        <form className="space-y-4" onSubmit={RegisterHandler}>
-          {/* Full Name */}
+        <form className="space-y-4" onSubmit={onSubmitHandler}>
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Full Name
             </label>
             <input
+              onChange={onNameChangeHandler}
+              value={name}
               type="text"
-              placeholder="Name"
+              placeholder="Enter your name"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
-
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
+              onChange={onEmailChangeHandler}
+              required
+              value={email}
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
-
-          {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <input
+              onChange={onPasswordChangeHandler}
+              value={password}
               type="password"
-              placeholder="Password"
+              required
+              placeholder="Enter new password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />
+            <span className="font-light">{password}</span>
           </div>
-
-          {/* Confirm Password */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          {/* Skills Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Select Your Skills
@@ -126,21 +124,12 @@ export default function Register() {
             </div>
           </div>
 
-          {/* Register Button */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
           >
-            Register
+            Save Changes
           </button>
-
-          {/* Already Have an Account */}
-          <p className="text-center text-sm text-gray-600">
-            Already have an account?{" "}
-            <a href="/login" className="text-blue-600 hover:underline">
-              Sign in
-            </a>
-          </p>
         </form>
       </div>
     </div>
