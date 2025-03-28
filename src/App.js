@@ -1,10 +1,9 @@
-import NavBar from "./component/NavBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Layout from "./layouts/layout";
 import Register from "./pages/Register";
-
+import EditProfile from "./pages/EditProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +12,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "Login", element: <Login /> },
       { path: "register", element: <Register /> },
+      { path: "EditProfile", element: <EditProfile /> },
     ],
   },
 ]);
