@@ -30,7 +30,7 @@ export default function Register() {
     };
 
     try {
-      console.log("body = ", body);
+      
       const resjson = await fetch(
         "http://localhost:8080/registor",
         {

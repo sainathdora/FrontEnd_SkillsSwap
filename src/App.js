@@ -36,7 +36,6 @@ function App() {
         console.log("something aint right");
       }
       const user = await res.json();
-      console.log(user);
       login();
       setloggedUser(user);
     } catch (err) {

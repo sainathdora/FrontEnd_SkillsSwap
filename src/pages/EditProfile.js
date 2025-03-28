@@ -3,7 +3,6 @@ import skillsData from "../assets/Skills.json";
 import { useAuth } from "../context/Authcontext";
 export default function EditProfile() {
   const { loggedUser } = useAuth();
-  console.log(loggedUser[0]);
   function onNameChangeHandler(e) {
     setName(e.target.value);
   }
@@ -17,14 +16,15 @@ export default function EditProfile() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   useEffect(() => {
-    if (loggedUser && loggedUser.length > 0) {
-      setEmail(loggedUser[0]["email"] || "");
-      setName(loggedUser[0]["name"] || "");
-      setPassword(loggedUser[0]["password"] || "");
-      setSelectedSkills(loggedUser[0]["skills"] || []);
+    console.log("inside effect", loggedUser);
+    if (loggedUser.id) {
+      setEmail(loggedUser["email"] || "");
+      setName(loggedUser["name"] || "");
+      setSelectedSkills(loggedUser["skills"] || []);
     }
-  }, []);
+  }, [loggedUser]);
   const handleSkillChange = (e) => {
     const skill = e.target.value;
     setSelectedSkills(
@@ -35,28 +35,34 @@ export default function EditProfile() {
     );
   };
   async function onSubmitHandler(e) {
+    let token = localStorage.getItem("jwtToken");
     e.preventDefault();
     let body = {
+      id: loggedUser.id,
       email,
       name,
       password,
       selectedSkills,
     };
     try {
-      const res = await fetch(
-        `https://json-server-pt0c.onrender.com/users/${loggedUser[0].id}`,
-        {
-          method: "put",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
-      const resjson = await res.json();
+      const res = await fetch("http://localhost:8080/updateUser", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+      console.log("res = ", res);
+      if (!res.ok) {
+        throw new Error("Something went");
+      }
+      const resjson = await res.text();
+      console.log("res = ", resjson);
       alert("Changes Successful!");
-      console.log(resjson);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
   return (
     <div className="flex justify-center items-center bg-gray-100">
