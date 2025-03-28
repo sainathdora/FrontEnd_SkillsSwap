@@ -8,6 +8,7 @@ export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const nav = useNavigate();
   function logoutHandler(e) {
+    localStorage.removeItem("jwtToken");
     logout();
     nav("/");
   }

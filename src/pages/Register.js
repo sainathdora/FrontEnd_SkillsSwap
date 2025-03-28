@@ -30,8 +30,9 @@ export default function Register() {
     };
 
     try {
+      console.log("body = ", body);
       const resjson = await fetch(
-        "https://json-server-pt0c.onrender.com/users",
+        "http://localhost:8080/registor",
         {
           method: "post",
           headers: {

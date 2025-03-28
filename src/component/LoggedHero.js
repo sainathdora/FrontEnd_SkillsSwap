@@ -3,14 +3,18 @@ import NeedYou from "./HeroNeeds/NeedYou";
 export default function LoggedHero() {
   const { loggedUser } = useAuth();
   console.log(loggedUser);
-  const { name, email, id } = loggedUser[0];
+  const { name, email, id } = loggedUser;
+
   return (
     <>
       <header>
         <div className="flex items-center justify-center m-2">
           <h1 className="text-4xl font-bold">
             Welcome Back,
-            <span className="text-red-500 font-extrabold">{" " + name}</span>!
+            <span className="text-red-500 font-extrabold">
+              {" " + name.split(" ")[0]}
+            </span>
+            !
           </h1>
         </div>
       </header>

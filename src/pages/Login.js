@@ -4,26 +4,37 @@ import { useAuth } from "../context/Authcontext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const { isLoggedIn, login, setUser } = useAuth();
+  const { isLoggedIn, login, setloggedUser } = useAuth();
   const nav = useNavigate();
   const [password, setPassword] = useState("");
   async function LogInHandler(e) {
     e.preventDefault();
     setEmail(e.target[0].value);
     setPassword(e.target[1].value);
-    const res = await fetch("https://json-server-pt0c.onrender.com/users");
-    const data = await res.json();
-    console.log(data);
-    const user = data.filter((obj) => {
-      return obj.email === email && obj.password === password;
-    });
-    if (user.length > 0) {
-      nav("/");
-      login();
-      setUser(user);
-      return;
-    } else {
-      alert("Wrong password or email");
+    try {
+      const res = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      const data = await res.json();
+      if (data === "failure") {
+        alert("Enter correct password");
+        return;
+      } else {
+        localStorage.setItem("jwtToken", data.result);
+        console.log(data);
+        setloggedUser(data.user);
+        login();
+        nav("/");
+      }
+    } catch (err) {
+      console.log("error ", err);
     }
   }
   return (
