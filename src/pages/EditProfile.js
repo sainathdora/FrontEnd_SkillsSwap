@@ -89,7 +89,7 @@ export default function EditProfile() {
             </label>
             <input
               onChange={onEmailChangeHandler}
-              required
+              
               value={email}
               type="email"
               placeholder="Enter your email"
@@ -104,7 +104,7 @@ export default function EditProfile() {
               onChange={onPasswordChangeHandler}
               value={password}
               type="password"
-              required
+              
               placeholder="Enter new password"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />

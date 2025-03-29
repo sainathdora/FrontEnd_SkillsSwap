@@ -23,12 +23,12 @@ export default function Login() {
         }),
       });
       const data = await res.json();
-      if (data === "failure") {
+      
+      if (data.result === "failure") {
         alert("Enter correct password");
         return;
       } else {
         localStorage.setItem("jwtToken", data.result);
-        console.log(data);
         setloggedUser(data.user);
         login();
         nav("/");

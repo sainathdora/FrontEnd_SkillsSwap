@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { useAuth } from "../context/Authcontext";
 import NeedYou from "./HeroNeeds/NeedYou";
 export default function LoggedHero() {
   const { loggedUser } = useAuth();
-  console.log(loggedUser);
   const { name, email, id } = loggedUser;
-
   return (
     <>
       <header>
