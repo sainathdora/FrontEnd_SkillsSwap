@@ -19,8 +19,9 @@ export const AuthProvider = ({ children }) => {
         },
       });
       if (!res.ok) {
+        console.log("res from authcontext: ", res);
         console.log("something aint right");
-        return {msg:"Failed Something went Wrong"}
+        return { msg: "Failed Something went Wrong" };
       }
       const user = await res.json();
       login();
@@ -29,19 +30,17 @@ export const AuthProvider = ({ children }) => {
       console.log("err", err);
     }
   }
-  useEffect(()=>{
-      let token = localStorage.getItem("jwtToken");
-      if(token){
-        const parts = token.split(".");
-        const payload = parts[1];
-        let user_details = JSON.parse(atob(payload));
-        find_user_by_mail(user_details.sub,token);
-        console.log(user_details)
-      }else{
-        
-      }
-  }, [])
- 
+  useEffect(() => {
+    let token = localStorage.getItem("jwtToken");
+    if (token) {
+      const parts = token.split(".");
+      const payload = parts[1];
+      let user_details = JSON.parse(atob(payload));
+      find_user_by_mail(user_details.sub, token);
+      console.log(user_details);
+    } else {
+    }
+  }, []);
 
   return (
     <AuthContext.Provider

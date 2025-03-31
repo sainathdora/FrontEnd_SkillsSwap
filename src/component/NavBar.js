@@ -31,9 +31,12 @@ export default function NavBar() {
             <Link to="/about" className="hover:text-blue-600 transition">
               About
             </Link>
-            <Link to="/services" className="hover:text-blue-600 transition">
-              Services
-            </Link>
+            {isLoggedIn && (
+              <Link to="/Needs" className="hover:text-blue-600 transition">
+                Needs
+              </Link>
+            )}
+
             <Link to="/contact" className="hover:text-blue-600 transition">
               Contact
             </Link>

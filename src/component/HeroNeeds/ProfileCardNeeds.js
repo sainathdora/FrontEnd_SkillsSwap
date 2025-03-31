@@ -1,11 +1,12 @@
-export default function ProfileCardNeeds({ needs, name, imgurl }) {
+export default function ProfileCardNeeds({ name }) {
+  const needs = ["web development", "Machine learning"];
   return (
     <>
       <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm ">
         <div class="flex flex-col items-center pb-10">
           <img
             class="w-24 h-24 mb-3 rounded-full shadow-lg"
-            src={imgurl}
+            src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg"
             alt={name}
           />
           <h5 class="mb-1 text-xl font-medium text-gray-900">{name}</h5>

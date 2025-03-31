@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Layout from "./layouts/layout";
 import Register from "./pages/Register";
 import EditProfile from "./pages/EditProfile";
+import MyNeeds from "./pages/MyNeeds";
 import { useAuth } from "./context/Authcontext";
 import { useEffect } from "react";
 
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "Login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "EditProfile", element: <EditProfile /> },
+      { path: "Needs", element: <MyNeeds /> },
     ],
   },
 ]);

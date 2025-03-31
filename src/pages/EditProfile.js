@@ -6,16 +6,13 @@ export default function EditProfile() {
   function onNameChangeHandler(e) {
     setName(e.target.value);
   }
-  function onPasswordChangeHandler(e) {
-    setPassword(e.target.value);
-  }
+
   function onEmailChangeHandler(e) {
     setEmail(e.target.value);
   }
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     console.log("inside effect", loggedUser);
@@ -41,7 +38,6 @@ export default function EditProfile() {
       id: loggedUser.id,
       email,
       name,
-      password,
       selectedSkills,
     };
     try {
@@ -89,27 +85,13 @@ export default function EditProfile() {
             </label>
             <input
               onChange={onEmailChangeHandler}
-              
               value={email}
               type="email"
               placeholder="Enter your email"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              onChange={onPasswordChangeHandler}
-              value={password}
-              type="password"
-              
-              placeholder="Enter new password"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
-            />
-            <span className="font-light">{password}</span>
-          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Select Your Skills
