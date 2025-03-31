@@ -6,7 +6,6 @@ export default function MyNeeds() {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const { loggedUser } = useAuth();
   useEffect(() => {
-    console.log("inside effect", loggedUser);
     if (loggedUser.id) {
       setSelectedSkills(loggedUser["needs"] || []);
     }
@@ -37,7 +36,7 @@ export default function MyNeeds() {
         }),
       });
       const resjson = await res.text();
-      if (resjson == "Success") {
+      if (resjson === "Success") {
         alert("Success");
         nav("/");
       }
